@@ -2,343 +2,179 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>細胞数計算機</title>
-  <meta name="theme-color" content="#2563eb" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Concentration Calculator</title>
+  <meta name="theme-color" content="#315e9f" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-title" content="細胞数計算" />
+  <meta name="apple-mobile-web-app-title" content="Concentration Calc" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <link rel="manifest" href="./manifest.json" />
-  <link rel="apple-touch-icon" href="./icon-192.png" />
-  <style>
-    :root {
-      --bg: #f6f7f9;
-      --card: #ffffff;
-      --text: #111827;
-      --muted: #6b7280;
-      --line: #e5e7eb;
-      --accent: #2563eb;
-      --danger: #dc2626;
-      --ok: #047857;
-      --shadow: 0 8px 24px rgba(0,0,0,.08);
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.45;
-    }
-    main {
-      width: min(720px, 100%);
-      margin: 0 auto;
-      padding: 16px;
-      padding-bottom: calc(24px + env(safe-area-inset-bottom));
-    }
-    h1 {
-      margin: 8px 0 4px;
-      font-size: 1.45rem;
-      letter-spacing: .02em;
-    }
-    .sub {
-      margin: 0 0 14px;
-      color: var(--muted);
-      font-size: .92rem;
-    }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-      padding: 14px;
-      margin: 12px 0;
-    }
-    label {
-      display: block;
-      font-weight: 700;
-      margin: 12px 0 6px;
-      font-size: .95rem;
-    }
-    .hint {
-      display: block;
-      color: var(--muted);
-      font-weight: 500;
-      font-size: .78rem;
-      margin-top: 2px;
-    }
-    input {
-      width: 100%;
-      font-size: 1.35rem;
-      padding: 12px 13px;
-      border: 1px solid #cfd5df;
-      border-radius: 14px;
-      background: #fff;
-      outline: none;
-    }
-    input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, .14);
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    .presets {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 8px;
-    }
-    button {
-      border: 1px solid var(--line);
-      background: #f9fafb;
-      color: var(--text);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-weight: 700;
-      font-size: .95rem;
-    }
-    button:active {
-      transform: translateY(1px);
-    }
-    .primary {
-      width: 100%;
-      margin-top: 14px;
-      padding: 13px;
-      border-radius: 14px;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      font-size: 1.05rem;
-    }
-    .result {
-      display: grid;
-      gap: 10px;
-    }
-    .big {
-      border-radius: 16px;
-      padding: 14px;
-      background: #f8fafc;
-      border: 1px solid var(--line);
-    }
-    .big .name {
-      color: var(--muted);
-      font-weight: 700;
-      font-size: .92rem;
-    }
-    .big .value {
-      font-size: 2rem;
-      font-weight: 800;
-      margin-top: 2px;
-    }
-    .value small {
-      font-size: 1rem;
-      color: var(--muted);
-      font-weight: 700;
-    }
-    .two {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    .mini {
-      border-top: 1px solid var(--line);
-      padding-top: 10px;
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: .92rem;
-    }
-    .mini div {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 4px 0;
-    }
-    .warn {
-      color: var(--danger);
-      font-weight: 800;
-      margin-top: 10px;
-    }
-    .ok {
-      color: var(--ok);
-      font-weight: 800;
-      margin-top: 10px;
-    }
-    .formula {
-      font-size: .88rem;
-      color: var(--muted);
-    }
-    @media (max-width: 430px) {
-      main { padding: 12px; }
-      .grid, .two { grid-template-columns: 1fr; }
-      .big .value { font-size: 1.75rem; }
-    }
-  </style>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <header class="app-header">
+    <div>
+      <h1>Concentration Calculator</h1>
+      <p class="subtitle">Excel濃度計算テンプレートの軽量版。スマホ/PCのブラウザで動作します。</p>
+    </div>
+    <div class="header-actions">
+      <button id="saveBtn" type="button">Save condition</button>
+      <button id="loadBtn" type="button">Load</button>
+      <button id="installBtn" type="button" hidden>Install</button>
+      <button id="exportJsonBtn" type="button">Export JSON</button>
+      <label class="file-label">Import JSON<input id="importJsonInput" type="file" accept="application/json" hidden></label>
+    </div>
+  </header>
+
   <main>
-    <h1>細胞数計算機</h1>
-    <p class="sub">目標細胞数は「×10⁴ cells/well」で入力。例：0.6、3、6、60</p>
-
-    <section class="card">
-      <label for="count">
-        カウント値
-        <span class="hint">ExcelのSheet2で入れているカウント値。例：70</span>
-      </label>
-      <input id="count" type="number" inputmode="decimal" step="0.1" placeholder="例：70" autofocus />
-
-      <label for="target">
-        目標細胞数
-        <span class="hint">単位：×10⁴ cells/well。60000 cells/wellなら 6</span>
-      </label>
-      <input id="target" type="number" inputmode="decimal" step="0.1" value="6" />
-      <div class="presets">
-        <button type="button" data-target="0.6">0.6</button>
-        <button type="button" data-target="1">1</button>
-        <button type="button" data-target="2">2</button>
-        <button type="button" data-target="3">3</button>
-        <button type="button" data-target="6">6</button>
-        <button type="button" data-target="60">60</button>
+    <section class="card settings-card">
+      <div class="field project-field">
+        <label for="projectName">File / condition name</label>
+        <input id="projectName" type="text" value="Aβ preparation" />
       </div>
-
-      <div class="grid">
-        <div>
-          <label for="well">
-            分注量
-            <span class="hint">µL/well</span>
-          </label>
-          <input id="well" type="number" inputmode="decimal" step="1" value="200" />
-        </div>
-        <div>
-          <label for="total">
-            作成総量
-            <span class="hint">µL</span>
-          </label>
-          <input id="total" type="number" inputmode="decimal" step="1" value="4000" />
+      <div class="field">
+        <label for="totalValue">Total amount</label>
+        <div class="inline-inputs">
+          <input id="totalValue" type="number" value="160" step="any" min="0" />
+          <select id="totalUnit" aria-label="total amount unit"></select>
         </div>
       </div>
-
-      <details style="margin-top: 10px;">
-        <summary style="font-weight:700; color:#374151;">詳細設定</summary>
-        <label for="factor">
-          換算係数
-          <span class="hint">通常は 50。懸濁液濃度 = カウント値 × 50 cells/µL</span>
-        </label>
-        <input id="factor" type="number" inputmode="decimal" step="1" value="50" />
-      </details>
-
-      <button class="primary" type="button" id="calc">計算</button>
+      <div class="field">
+        <label for="amountDigits">Digits</label>
+        <input id="amountDigits" type="number" value="4" min="0" max="10" />
+      </div>
+      <label class="checkbox-field">
+        <input id="includeWater" type="checkbox" checked />
+        Add H<sub>2</sub>O row automatically
+      </label>
+      <label class="checkbox-field">
+        <input id="includeConcentrations" type="checkbox" />
+        Show Initial/Final con. in generated table
+      </label>
+      <div class="field water-name-field">
+        <label for="waterName">Water row name</label>
+        <input id="waterName" type="text" value="H₂O" />
+      </div>
     </section>
 
-    <section class="card result" aria-live="polite">
-      <div class="two">
-        <div class="big">
-          <div class="name">細胞懸濁液</div>
-          <div class="value" id="cellVol">— <small>µL</small></div>
-        </div>
-        <div class="big">
-          <div class="name">培地</div>
-          <div class="value" id="mediumVol">— <small>µL</small></div>
-        </div>
-      </div>
+    <nav class="tabs" aria-label="tabs">
+      <button class="tab active" data-tab="calc" type="button">Calculation</button>
+      <button class="tab" data-tab="plate" type="button">96-well memo</button>
+      <button class="tab" data-tab="history" type="button">History</button>
+      <button class="tab" data-tab="saved" type="button">Saved</button>
+    </nav>
 
-      <div class="mini">
-        <div><span>懸濁液濃度</span><strong id="stockConc">—</strong></div>
-        <div><span>目標濃度</span><strong id="targetConc">—</strong></div>
-        <div><span>作れるwell数</span><strong id="wells">—</strong></div>
-        <div><span>目標細胞数</span><strong id="targetCells">—</strong></div>
-      </div>
+    <section id="calcTab" class="tab-panel active">
+      <section class="card">
+        <div class="section-head">
+          <h2>Input</h2>
+          <div class="button-row">
+            <button id="addRowBtn" type="button">+ Add row</button>
+            <button id="sampleBtn" type="button">Load sample</button>
+            <button id="clearBtn" type="button" class="danger">Clear</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table id="inputTable" class="input-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Reagent</th>
+                <th colspan="2">Initial con.</th>
+                <th colspan="2">Final con.</th>
+                <th colspan="2">Amount</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="reagentBody"></tbody>
+          </table>
+        </div>
+      </section>
 
-      <div id="message"></div>
+      <section class="card output-card">
+        <div class="section-head">
+          <h2>Generated table</h2>
+          <div class="button-row">
+            <button id="generateBtn" type="button">Generate + keep history</button>
+            <button id="copyTableBtn" type="button">Copy as table</button>
+            <button id="copyImageBtn" type="button">Copy as image</button>
+            <button id="downloadPngBtn" type="button">Download PNG</button>
+            <button id="downloadCsvBtn" type="button">Download CSV</button>
+            <button id="printBtn" type="button">Print</button>
+          </div>
+        </div>
+        <p id="status" class="status">Edit values to calculate automatically.</p>
+        <div class="table-wrap print-area" id="printArea">
+          <h3 id="outputTitle">Aβ preparation</h3>
+          <table id="outputTable" class="output-table">
+            <thead id="outputHead"></thead>
+            <tbody id="outputBody"></tbody>
+          </table>
+        </div>
+      </section>
     </section>
 
-    <section class="card formula">
-      <strong>計算式</strong><br>
-      懸濁液濃度 = カウント値 × 50<br>
-      目標濃度 = 目標細胞数 ÷ 分注量<br>
-      細胞懸濁液量 = 作成総量 × 目標濃度 ÷ 懸濁液濃度
+    <section id="plateTab" class="tab-panel">
+      <section class="card">
+        <div class="section-head">
+          <h2>96-well memo</h2>
+          <div class="button-row">
+            <select id="platePreset"></select>
+            <button id="fillSelectedBtn" type="button">Fill selected</button>
+            <button id="clearPlateBtn" type="button" class="danger">Clear plate</button>
+            <button id="copyPlateBtn" type="button">Copy plate</button>
+          </div>
+        </div>
+        <p class="note">セルをクリックして選択、ダブルクリックまたは直接入力で編集できます。現在の入力内容は自動でブラウザに保持されます。</p>
+        <div class="plate-wrap">
+          <table id="plateTable" class="plate-table"></table>
+        </div>
+      </section>
+    </section>
+
+    <section id="historyTab" class="tab-panel">
+      <section class="card">
+        <div class="section-head">
+          <div>
+            <h2>Generated history</h2>
+            <p class="note history-note">Generateした調製表をブラウザ内に保持します。上限は最新50件です。</p>
+          </div>
+          <div class="button-row">
+            <button id="refreshHistoryBtn" type="button">Refresh</button>
+            <button id="clearHistoryBtn" type="button" class="danger">Clear history</button>
+          </div>
+        </div>
+        <div id="historyList" class="saved-list"></div>
+      </section>
+    </section>
+
+    <section id="savedTab" class="tab-panel">
+      <section class="card">
+        <div class="section-head">
+          <h2>Saved conditions</h2>
+          <div class="button-row"><button id="refreshSavedBtn" type="button">Refresh</button></div>
+        </div>
+        <div id="savedList" class="saved-list"></div>
+      </section>
     </section>
   </main>
 
-  <script>
-    const $ = (id) => document.getElementById(id);
+  <template id="rowTemplate">
+    <tr>
+      <td class="row-index"></td>
+      <td><input class="reagent-name" type="text" placeholder="Reagent"></td>
+      <td><input class="initial-value" type="number" step="any" placeholder=""></td>
+      <td><select class="initial-unit"></select></td>
+      <td><input class="final-value" type="number" step="any" placeholder=""></td>
+      <td><select class="final-unit"></select></td>
+      <td><input class="amount-value" type="text" readonly></td>
+      <td><select class="amount-unit"></select></td>
+      <td><button class="remove-row danger" type="button">×</button></td>
+    </tr>
+  </template>
 
-    function num(id) {
-      const v = parseFloat($(id).value);
-      return Number.isFinite(v) ? v : NaN;
-    }
-
-    function fmt(x, digits = 1) {
-      if (!Number.isFinite(x)) return "—";
-      if (Math.abs(x) >= 100) return Math.round(x).toLocaleString();
-      return x.toLocaleString(undefined, { maximumFractionDigits: digits });
-    }
-
-    function calc() {
-      const count = num("count");
-      const targetX = num("target");
-      const well = num("well");
-      const total = num("total");
-      const factor = num("factor");
-
-      const message = $("message");
-      message.innerHTML = "";
-
-      if (![count, targetX, well, total, factor].every(v => Number.isFinite(v) && v > 0)) {
-        $("cellVol").innerHTML = `— <small>µL</small>`;
-        $("mediumVol").innerHTML = `— <small>µL</small>`;
-        $("stockConc").textContent = "—";
-        $("targetConc").textContent = "—";
-        $("wells").textContent = "—";
-        $("targetCells").textContent = "—";
-        return;
-      }
-
-      const stockConc = count * factor;              // cells/µL
-      const targetCells = targetX * 10000;           // cells/well
-      const targetConc = targetCells / well;         // cells/µL
-      const cellVol = total * targetConc / stockConc;
-      const mediumVol = total - cellVol;
-      const wells = total / well;
-
-      $("cellVol").innerHTML = `${fmt(cellVol)} <small>µL</small>`;
-      $("mediumVol").innerHTML = `${fmt(mediumVol)} <small>µL</small>`;
-      $("stockConc").textContent = `${fmt(stockConc)} cells/µL`;
-      $("targetConc").textContent = `${fmt(targetConc)} cells/µL`;
-      $("wells").textContent = `${fmt(wells, 1)} wells`;
-      $("targetCells").textContent = `${fmt(targetCells)} cells/well`;
-
-      if (cellVol > total) {
-        message.innerHTML = `<div class="warn">細胞懸濁液だけで総量を超えます。濃すぎる目標か、カウント値が低すぎます。</div>`;
-      } else if (cellVol < 10) {
-        message.innerHTML = `<div class="warn">細胞懸濁液量が10 µL未満です。ピペット誤差が大きくなりやすいです。</div>`;
-      } else {
-        message.innerHTML = `<div class="ok">この条件で調製できます。</div>`;
-      }
-    }
-
-    ["count", "target", "well", "total", "factor"].forEach(id => {
-      $(id).addEventListener("input", calc);
-    });
-    $("calc").addEventListener("click", calc);
-
-    document.querySelectorAll("[data-target]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        $("target").value = btn.dataset.target;
-        calc();
-      });
-    });
-
-    calc();
-  </script>
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js").catch(() => {});
-      });
-    }
-  </script>
+  <script src="app.js"></script>
 </body>
 </html>

@@ -1,0 +1,257 @@
+:root {
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --text: #172033;
+  --muted: #637083;
+  --line: #d8dee9;
+  --line-dark: #b8c0cc;
+  --accent: #315e9f;
+  --accent-light: #e9f1ff;
+  --danger: #a33a3a;
+  --warning-bg: #fff6d7;
+  --warning-text: #765800;
+  --ok-bg: #e8f6ee;
+  --ok-text: #245b38;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  padding: 22px 28px;
+  background: var(--card);
+  border-bottom: 1px solid var(--line);
+}
+
+h1, h2, h3 { margin: 0; }
+h1 { font-size: 24px; }
+h2 { font-size: 18px; }
+h3 { font-size: 16px; margin-bottom: 12px; }
+.subtitle { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+
+main { max-width: 1200px; margin: 20px auto 60px; padding: 0 18px; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 4px 14px rgba(20, 40, 80, 0.05);
+  margin-bottom: 16px;
+}
+.settings-card {
+  display: grid;
+  grid-template-columns: 2fr 1.1fr .6fr 1.35fr 1.55fr 1fr;
+  gap: 14px;
+  align-items: end;
+}
+.field label, .checkbox-field { display: block; font-size: 12px; color: var(--muted); margin-bottom: 5px; }
+.checkbox-field { color: var(--text); margin: 0; padding-bottom: 8px; }
+.inline-inputs { display: flex; gap: 6px; }
+input, select, button, .file-label { font: inherit; }
+input, select {
+  width: 100%;
+  padding: 8px 9px;
+  border: 1px solid var(--line-dark);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text);
+}
+button, .file-label {
+  border: 1px solid var(--line-dark);
+  border-radius: 8px;
+  background: #fff;
+  padding: 8px 10px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+button:hover, .file-label:hover { border-color: var(--accent); color: var(--accent); }
+button.danger { color: var(--danger); }
+.header-actions, .button-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.section-head { display: flex; justify-content: space-between; gap: 14px; align-items: center; margin-bottom: 14px; }
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+.tab { padding: 10px 16px; }
+.tab.active { background: var(--accent); color: white; border-color: var(--accent); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td { border: 1px solid var(--line); padding: 7px; vertical-align: middle; }
+th { background: #f1f4f9; font-weight: 650; text-align: center; }
+.input-table th:first-child, .input-table td:first-child { width: 42px; text-align: center; }
+.input-table .reagent-name { min-width: 180px; }
+.input-table .amount-value { background: #f8fafc; text-align: right; font-variant-numeric: tabular-nums; }
+.input-table select { min-width: 72px; }
+.output-table .amount-cell { text-align: right; font-variant-numeric: tabular-nums; }
+.output-table tr.total-row td { font-weight: 700; background: #f1f4f9; }
+.output-table tr.water-row td { background: #fbfdff; }
+.status { margin: 0 0 12px; padding: 10px 12px; border-radius: 9px; background: var(--ok-bg); color: var(--ok-text); }
+.status.warning { background: var(--warning-bg); color: var(--warning-text); }
+.note { color: var(--muted); margin-top: -4px; }
+.history-note { margin: 4px 0 0; font-size: 13px; }
+.plate-wrap { overflow: auto; }
+.plate-table { min-width: 920px; table-layout: fixed; }
+.plate-table th { width: 70px; }
+.plate-table td {
+  height: 64px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.2;
+  cursor: pointer;
+  background: white;
+  white-space: pre-wrap;
+}
+.plate-table td.selected { outline: 3px solid var(--accent); background: var(--accent-light); }
+.saved-list { display: grid; gap: 10px; }
+.saved-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+}
+.saved-item .meta { color: var(--muted); font-size: 12px; margin-top: 3px; }
+.history-preview { margin-top: 8px; color: var(--muted); font-size: 12px; }
+.history-preview span { display: inline-block; margin-right: 10px; }
+
+@media (max-width: 860px) {
+  .app-header { display: block; }
+  .header-actions { margin-top: 14px; }
+  .settings-card { grid-template-columns: 1fr; }
+  .section-head { display: block; }
+  .button-row { margin-top: 10px; }
+  .saved-item { display: block; }
+}
+
+@media print {
+  body { background: white; }
+  header, .settings-card, .tabs, #inputTable, .section-head, .status, .note { display: none !important; }
+  main { margin: 0; padding: 0; max-width: none; }
+  .card { border: none; box-shadow: none; padding: 0; }
+  .print-area { overflow: visible; }
+}
+
+/* Smartphone-focused layout */
+.mobile-only { display: none; }
+@media (max-width: 700px) {
+  body { background: #f7f9fd; }
+  .app-header { padding: 16px 14px; }
+  h1 { font-size: 20px; }
+  main { margin: 12px auto 40px; padding: 0 10px; }
+  .card { border-radius: 12px; padding: 12px; margin-bottom: 12px; }
+  .header-actions, .button-row { gap: 6px; }
+  button, .file-label { padding: 8px 9px; font-size: 14px; }
+  input, select { padding: 9px 8px; font-size: 16px; }
+  .tabs { position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 8px 0; margin: 8px 0 12px; }
+  .tab { flex: 1 1 45%; text-align: center; padding: 9px 8px; }
+
+  .input-table,
+  .input-table thead,
+  .input-table tbody,
+  .input-table tr,
+  .input-table td {
+    display: block;
+    width: 100%;
+  }
+  .input-table thead { display: none; }
+  .input-table tr {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    margin: 0 0 12px;
+    padding: 10px;
+    background: #fff;
+  }
+  .input-table td {
+    border: 0;
+    padding: 5px 0;
+  }
+  .input-table td:first-child {
+    width: 100%;
+    text-align: left;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .input-table td:nth-child(2)::before { content: "Reagent"; }
+  .input-table td:nth-child(3)::before { content: "Initial con."; }
+  .input-table td:nth-child(5)::before { content: "Final con."; }
+  .input-table td:nth-child(7)::before { content: "Amount"; }
+  .input-table td:nth-child(2)::before,
+  .input-table td:nth-child(3)::before,
+  .input-table td:nth-child(5)::before,
+  .input-table td:nth-child(7)::before {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .input-table td:nth-child(3),
+  .input-table td:nth-child(5),
+  .input-table td:nth-child(7) {
+    display: grid;
+    grid-template-columns: 1fr 82px;
+    gap: 6px;
+    align-items: end;
+  }
+  .input-table td:nth-child(3)::before,
+  .input-table td:nth-child(5)::before,
+  .input-table td:nth-child(7)::before {
+    grid-column: 1 / -1;
+  }
+  .input-table td:nth-child(4),
+  .input-table td:nth-child(6),
+  .input-table td:nth-child(8) {
+    display: none;
+  }
+  .input-table td:nth-child(3) select,
+  .input-table td:nth-child(5) select,
+  .input-table td:nth-child(7) select {
+    display: block;
+  }
+  .input-table td:nth-child(3) { grid-template-columns: 1fr; }
+  .input-table td:nth-child(5) { grid-template-columns: 1fr; }
+  .input-table td:nth-child(7) { grid-template-columns: 1fr; }
+  .input-table tr td:nth-child(3) input,
+  .input-table tr td:nth-child(5) input,
+  .input-table tr td:nth-child(7) input { margin-bottom: 6px; }
+  .input-table tr td:nth-child(3) + td,
+  .input-table tr td:nth-child(5) + td,
+  .input-table tr td:nth-child(7) + td {
+    display: block;
+    padding-top: 0;
+  }
+  .input-table td:last-child { text-align: right; }
+  .remove-row { min-width: 52px; }
+
+  .output-card .button-row button { flex: 1 1 45%; }
+  .output-table th, .output-table td { padding: 6px; font-size: 13px; }
+  .saved-item .button-row button { flex: 1 1 45%; }
+  .plate-table { min-width: 760px; }
+  .plate-table td { height: 54px; font-size: 11px; }
+}
+@media (max-width: 700px) {
+  .input-table td:nth-child(4),
+  .input-table td:nth-child(6),
+  .input-table td:nth-child(8) {
+    display: block;
+    padding-top: 0;
+  }
+  .input-table td:nth-child(4)::before,
+  .input-table td:nth-child(6)::before,
+  .input-table td:nth-child(8)::before {
+    content: "Unit";
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+}
